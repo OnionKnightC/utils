@@ -19,10 +19,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 public class POIUtil{
-    private LinkedList<LinkedList<String>> context;
+    private LinkedList<LinkedList<String>> context = new LinkedList<LinkedList<String>>();
     
     public void process(String excelFilePath, String ... sheetNames) throws IOException, SAXException, ParserConfigurationException, OpenXML4JException{
-        context = new LinkedList<LinkedList<String>>();
+        context.clear();
         
         OPCPackage pkg = OPCPackage.open(excelFilePath, PackageAccess.READ);
         XSSFReader xssfReader = new XSSFReader(pkg);
@@ -62,6 +62,10 @@ public class POIUtil{
         
         public SimpleSheetContentsHandler(String sheetName){
             this.sheetName = sheetName;
+        }
+        
+        public SimpleSheetContencsHandler(){
+            this(null);
         }
         
         public void startRow(int rowNum){
